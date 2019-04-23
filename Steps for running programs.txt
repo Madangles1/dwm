@@ -1,0 +1,17 @@
+Saving python programs path
+=============================
+C:\Users\Omkar\AppData\Local\Programs\Python\Python36-32
+
+Path for pip
+===============
+C:\Users\Omkar\AppData\Local\Programs\Python\Python36-32\Scripts
+
+Pip upgrade command
+=======================
+python -m pip install --upgrade pip
+
+Installing packages
+====================
+pip install matplotlib
+pip install -U scikit-learn
+pip install -U numpy

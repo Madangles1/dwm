@@ -1,0 +1,58 @@
+create table state(
+state_id integer,
+state_name varchar(20),
+primary key(state_id)
+);
+
+create table city(
+state_id integer,
+city_id integer,
+city_name varchar(20),
+success_rate float,
+primary key(city_id),
+foreign key(state_id) references state
+);
+
+create table hospitals(
+city_id integer,
+h_id integer,
+h_name varchar(30),
+h_success float,
+primary key(h_id),
+foreign key(city_id) references city
+);
+
+insert into state values(1,'Maharashtra');
+insert into state values(2,'Karnataka');
+
+insert into city values(1,101,'Mumbai',92.8);
+insert into city values(1,102,'Pune',90.34);
+insert into city values(2,103,'Bengluru',92.8);
+insert into city values(2,104,'Mysore',88.5);
+
+
+insert into hospitals values(101,1001,'Mumbai Suburban City Hospital',91.3);
+insert into hospitals values(101,1002,'Thane City Hospital',93.4);
+insert into hospitals values(102,1003,'Kothrud City Hospital',89.3);
+insert into hospitals values(102,1004,'Vanaj City Hospital',90.89);
+insert into hospitals values(103,1005,'Bangluru City Hospital',92.8);
+insert into hospitals values(104,1006,'Mysore City Hospital',88.5);
+
+/*Roll up*/
+select state_name,avg(success_rate) 
+from state,city where (state.state_id = city.state_id)
+group by state_name;
+
+/*drill down*/
+select city_name,count(h_name)
+from city,hospitals where (city.city_id = hospitals.city_id)
+group by city_name;
+
+/*slice*/
+select city_name,h_name,h_success
+from city natural join hospitals where (city_name='Mumbai')
+
+/*dice*/
+select city_name,h_name,h_success
+from city natural join hospitals 
+where city_name='Mumbai'and h_success>92;
